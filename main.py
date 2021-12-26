@@ -63,6 +63,7 @@ async def help(ctx):
 >>> **List of commands:** :robot:
 `- info`
 `- inspire`
+`- linux`
 `- copypasta (Might be nsfw sometimes)`
 `- nft <currency> (If no currency is provided, the default will be php)`
 
