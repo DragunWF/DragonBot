@@ -4,6 +4,7 @@ from discord.ext import commands
 
 import utils.api_requests as api
 import utils.keyword_responses as keyword
+import utils.msg_logs as mlogs
 from utils.uptime import keep_alive
 
 import games.tictactoe as ttt
@@ -34,10 +35,8 @@ async def on_message(message):
         return
 
     msg, channel = message.content, message.channel
-    if channel != previous_channel:
-        console.log(
-            f"[underline][bold][yellow]{channel}:[/yellow][/bold][/underline]")
-    console.log(f"[bold][green]{message.author.name}:[/green][/bold] {msg}")
+    mlogs.message_log(message.author.name, msg, channel,
+                      message.guild.id, channel != previous_channel)
     previous_channel = channel
 
     if any(word in msg.lower() for word in keyword.dragon):
@@ -53,12 +52,9 @@ async def on_message(message):
 async def on_message_edit(message, edited):
     global previous_channel
     channel = message.channel
-    if channel != previous_channel:
-        console.log(
-            f"[underline][bold][yellow]{channel}:[/yellow][/bold][/underline]")
-    console.log(f"""[bold][green]{message.author.name}[/green][red] (Edit Event)[/red]:[/bold]
-[cyan]Orginal Message:[/cyan] {message.content}
-[red]Edited Message:[/red] {edited.content}""")
+    mlogs.message_edit_log(message.author.name,
+                           edited.content, message.content, channel,
+                           message.guild.id, previous_channel != channel)
     previous_channel = channel
 
 
