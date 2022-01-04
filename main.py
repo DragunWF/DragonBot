@@ -6,7 +6,7 @@ import games.tictactoe as ttt
 import games.guess as gg
 import games.rockpaperscissors as rps
 import games.fight as fight
-from uptime import keep_alive
+from utils.uptime import keep_alive
 from discord.ext import commands
 from rich.console import Console
 
