@@ -1,13 +1,16 @@
 import discord
 import config  # import os
+from discord.ext import commands
+
 import utils.api_requests as api
 import utils.keyword_responses as keyword
+from utils.uptime import keep_alive
+
 import games.tictactoe as ttt
 import games.guess as gg
 import games.rockpaperscissors as rps
 import games.fight as fight
-from utils.uptime import keep_alive
-from discord.ext import commands
+
 from rich.console import Console
 
 client = discord.Client()
@@ -225,6 +228,7 @@ async def endgame(ctx):
                     if not cog:
                         await ctx.send("Your game/games has been ended")
                         cog = True
+
     tictactoe_cog = False
     for pair in ttt.TicTacToe.players_playing:
         for id in pair:

@@ -41,6 +41,7 @@ async def tictactoe(ctx, player2: discord.Member):
             await ctx.send(f"<@{ctx.author.id}> goes first")
         elif game.turn == "p2":
             await ctx.send(f"<@{player2.id}> goes first")
+
     in_game = False
     if TicTacToe.players_playing:
         for pair in TicTacToe.players_playing:

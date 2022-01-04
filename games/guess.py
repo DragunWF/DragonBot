@@ -23,6 +23,7 @@ Welcome to the game where you try guess the correct number from 1 to 100!
 - Type `d!g <number>` or `d!guess <number>` to make a guess
 *Note: Don't worry, You'll be provided with hints with every wrong guess you make*
         """)
+        
     if bool(Guessing.players_playing):
         for id in Guessing.players_playing:
             if ctx.author.id == id:

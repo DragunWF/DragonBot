@@ -99,6 +99,7 @@ async def choice(ctx, choice: str):
 `{game.p1_name}: {game.p1_health} hp
 {game.p2_name}: {game.p2_health} hp`""")
         await check_win()
+
     choices_available = ("attack", "defend")
     in_a_fight = False
     for pairs in Fight.players_playing:
