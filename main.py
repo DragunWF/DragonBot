@@ -16,7 +16,9 @@ from rich.console import Console
 client = discord.Client()
 client = commands.Bot(command_prefix=("d!", "D!"))
 client.remove_command("help")
-console, previous_channel = Console(), None
+
+console = Console()
+previous_channel = None
 
 
 @client.event
@@ -92,9 +94,7 @@ async def help(ctx):
 @client.command()
 async def info(ctx):
     await ctx.send("""
->>> **Hello, This is a bot created by** `DragonWF#9321`
-
-It's just a bot with a lot of fun commands to try out, No moderation commands and stuff like that... 
+**Hello, This is a bot created by** `DragonWF#9321`
 """)
 
 
