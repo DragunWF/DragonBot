@@ -1,5 +1,5 @@
 import discord
-import config  # import os
+import utils.config as config  # import os
 from discord.ext import commands
 
 import utils.api_requests as api
