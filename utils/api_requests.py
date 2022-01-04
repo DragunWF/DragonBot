@@ -45,7 +45,11 @@ PlantsVsUndead Token (PVU): `{pvu_value} {currency}`
 Smooth Love Potion (SLP): `{slp_value} {currency}`
 Bomb Coin (BOMB): `{bomb_value} {currency}`"""
     except KeyError:
-        return "You either sent an unsupported currency or you sent some random jibberish"
+        responses = ("That's an... Invalid input", "Well that's an invalid input",
+                     "You need to enter a valid currency", "Invalid input")
+        if len(currency_type) > 3:
+            return random.choice(responses)
+        return "Unsupported Currency"
 
 
 def get_meme(type=""):
