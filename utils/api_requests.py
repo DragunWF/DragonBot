@@ -34,7 +34,7 @@ def view_nft_values(currency_type=""):
         slp_value = requests.get(slp_url, headers={
             'accept': 'application/json'}).json()["smooth-love-potion"][f"{currency_type}"]
         bomb_value = requests.get(bomb_url, headers={
-                                  'accept': 'application/json'}).json()["bomb"][f"{currency_type}"]
+                                  'accept': 'application/json'}).json()["bomber-coin"][f"{currency_type}"]
 
         currency = currency_type.upper()
         return f"""
