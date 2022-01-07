@@ -4,13 +4,14 @@ from discord.ext import commands
 
 import utils.api_requests as api
 import utils.keyword_responses as keyword
-import utils.msg_logs as mlogs
+import utils.message_logs as mlogs
 from utils.uptime import keep_alive
 
 import games.tictactoe as ttt
 import games.guess as gg
 import games.rockpaperscissors as rps
 import games.fight as fight
+import games.economy.actions as eco
 
 from rich.console import Console
 
@@ -31,6 +32,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global previous_channel
+
     if message.author == client.user:
         return
 
@@ -129,6 +131,18 @@ async def coder(ctx):
 @client.command()
 async def linux(ctx):
     await ctx.send(embed=api.get_meme("linux"))
+
+
+# -----Economy Commands------
+@client.command(aliases=("e", "eco"))
+async def economy(ctx, action: str):
+    await ctx.send(eco.action(action.lower(), ctx.author.id))
+
+
+@economy.error
+async def economy_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
+        await ctx.send("You can type `d!economy help` to get the list of commands")
 
 
 # -----TicTacToe-----
