@@ -1,4 +1,5 @@
 import random
+from .economy.rewards import game_reward
 from discord.ext import commands
 
 
@@ -23,7 +24,7 @@ Welcome to the game where you try guess the correct number from 1 to 100!
 - Type `d!g <number>` or `d!guess <number>` to make a guess
 *Note: Don't worry, You'll be provided with hints with every wrong guess you make*
         """)
-        
+
     if bool(Guessing.players_playing):
         for id in Guessing.players_playing:
             if ctx.author.id == id:
@@ -50,6 +51,9 @@ async def guess(ctx, guess: int):
                         Guessing.players_playing.index(ctx.author.id))
                     Guessing.games_running.pop(
                         Guessing.games_running.index(game))
+                    reward = game_reward(ctx.author.id, "guess")
+                    if reward:
+                        await ctx.send(reward)
                     break
                 elif guess > game.correct_number:
                     game.retries += 1
