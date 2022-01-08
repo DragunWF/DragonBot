@@ -63,7 +63,7 @@ async def on_message_edit(message, edited):
 @client.command()
 async def help(ctx, category=None):
     help = """
->>> **List of Commands:** :robot:
+>>> **List of Help Commands:** :robot:
 `- d!help general`
 `- d!help memes`
 `- d!help games`
@@ -88,7 +88,7 @@ async def help(ctx, category=None):
 
 **TicTacToe:**
 `- d!ttt <player2>`
-`- place <tile>`
+`- d!place <tile>`
 
 **Guessing Game:**
 `- d!gg`
@@ -99,10 +99,10 @@ async def help(ctx, category=None):
 `- d!choose <option>` or `d!c <option>`
 
 **Fighting Game:**
-`- fight <player2>`
-`- option <attack or defend>` or `d!opt <attack or defend>`
+`- d!fight <player2>`
+`- d!option <attack or defend>` or `d!opt <attack or defend>`
 
-**For ending games:**
+**For Ending/Closing Games:**
 `- d!endgame` or `d!eg`"""
 
     economy = """
@@ -120,6 +120,11 @@ async def help(ctx, category=None):
 async def info(ctx):
     await ctx.send("""
 **Hello, This is a bot created by** `DragonWF#9321`
+```
+This is basically just a personal bot filled with fun commands and some practical ones like 
+`d!nft` to view cryptocurrency values. Just for some extra information, you can earn gold *(Bot's game currency)*
+just by winning mini-games.
+```
 """)
 
 
@@ -163,7 +168,7 @@ async def linux(ctx):
 # -----Economy Commands------
 @client.command(aliases=("e", "eco"))
 async def economy(ctx, action: str):
-    await ctx.send(eco.action(action.lower().strip(), ctx.author.id))
+    await ctx.send(eco.action(action.lower().strip(), ctx.author.id, ctx.author))
 
 
 @economy.error
@@ -180,7 +185,7 @@ async def tictactoe(ctx, player2: discord.Member):
 
 @client.command(aliases=["p"])
 async def place(ctx, tile: int):
-    await ttt.tictactoe(ctx, tile)
+    await ttt.place(ctx, tile)
 
 
 @tictactoe.error
