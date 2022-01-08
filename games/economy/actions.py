@@ -1,5 +1,8 @@
 import random
+import time
 import csv
+
+# It ignored the map function because of the empty lines in the csv file
 
 data_location = "data/economy_data.csv"
 
@@ -11,37 +14,51 @@ list_of_commands = """
 """
 
 list_of_jobs = """
-List of Jobs:
+>>> List of Jobs:
 - Farmer
 - Miner
 - Engineer
 """
 
 
+def register(player):
+    with open(data_location, "a") as file:
+        writer = csv.writer(file)
+        writer.writerow([player, 0, 0, "none", []])
+        file.write("\n")
+    return "You have been registered"
+
+
 def work():
     pass
 
 
-def register(player):
-    with open(data_location, "r") as file:
-        reader = list(csv.reader(file))
-        for data in reader:
-            if player == data[0]:
-                return "You're already registered in the kingdom!"
+def scavenge(player_data):
+    locations = ("caves", "trash cans", "bushes",
+                 "Tom's bag", "Tom's destroyed linux machine", "Warcook's house",
+                 "CPT's cave", "shoes", "DJDAN's pillows")
+    gold_gained = random.randint(5, 50)
+    with open(data_location, "r") as data:
+        data_sets = [x for x in list(csv.reader(data)) if x]
+        data_sets = list(map(lambda arr: [int(arr[0]), int(
+            arr[1]), int(arr[2]), arr[3], arr[4]], data_sets))
+        index = data_sets.index(player_data)
+        data_sets[index][2] += gold_gained
+        with open(data_location, "w") as file:
+            writer = csv.writer(file)
+            for row in data_sets:
+                writer.writerow(row)
+    return f"You have scavenged **{gold_gained} gold** from {random.choice(locations)}!"
 
-    with open(data_location, "a", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow([player, 0, 0, "none", []])
-    return "You have been registered"
 
-
-def action(command, player_id):
+def action(command, player_id, option=None):
     registered = False
     with open(data_location, "r") as file:
-        data = list(csv.reader(file))
-        for player_id in data:
-            if player_id == data[0]:
+        data = [x for x in list(csv.reader(file)) if x]
+        for data_set in data:
+            if player_id == int(data_set[0]):
                 registered = True
+                break
 
     if command == "help":
         return list_of_commands
@@ -56,32 +73,18 @@ def action(command, player_id):
         player_data = None
         with open(data_location, "r") as file:
             reader = list(csv.reader(file))
-            print(reader)
             for data in reader:
-                print(data)
-                print(f"{data[0]} : {player_id} ? {data[0] == player_id}")
                 if player_id == int(data[0]):
-                    print('passed')
                     player_data = data
-                    player_data[1], player_data[2] = int(data[1]), int(data[2])
+                    player_data = [int(player_data[0]), int(player_data[1]),
+                                   int(player_data[2]), player_data[3], player_data[4]]
                     break
 
-        if command == "scavange":
-            locations = ("caves", "trash cans", "bushes",
-                         "Tom's bag", "Tom's destroyed linux machine", "Warcook's house")
-            gold_gained = random.randint(5, 50)
-            with open(data_location, "r") as data:
-                data_sets = list(csv.reader(data))
-                index = data_sets.index(player_data)
-                data_sets[index][2] += gold_gained
-                with open(data_location, "w") as file:
-                    writer = csv.writer(file)
-                    for row in list(csv.reader(data_sets)):
-                        writer.writerow(row)
-            return f"You have scavenged {gold_gained} gold from {random.choice(locations)}!"
+        if command == "scavenge":
+            return scavenge(player_data)
 
         if command == "gold":
-            return f"You have {player_data[2]} gold."
+            return f"You have **{player_data[2]} gold**."
 
         if command == "work":
             pass
