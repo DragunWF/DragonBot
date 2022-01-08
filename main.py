@@ -67,22 +67,22 @@ async def help(ctx, category=None):
 `- d!help general`
 `- d!help memes`
 `- d!help game`
-`- d!help economy`
-"""
+`- d!help economy`"""
+
     general = """
 >>> **List of General Commands:**
 `- d!info`
 `- d!inspire`
 `- d!nft <currency>`
-`- d!linux`
-"""
+`- d!linux`"""
+
     meme = """
 >>> **List of Meme Commands:** :japanese_goblin:
 `- d!meme`
 `- d!homicide (Comedy Homicide)`
 `- d!coder (Programmer meme)`
-`- d!copypasta`
-"""
+`- d!copypasta`"""
+
     games = """
 >>> **Game Commands:** :game_die:
 
@@ -103,15 +103,14 @@ async def help(ctx, category=None):
 `- option <attack or defend>` or `d!opt <attack or defend>`
 
 **For ending games:**
-`- d!endgame` or `d!eg`
-"""
+`- d!endgame` or `d!eg`"""
+
     economy = """
 **Economy Commands:** :money_with_wings:
 - `d!register`
 - `d!scavenge`
 - `d!gold`
-*(Still work in progress)*
-"""
+*(Still work in progress)*"""
     categories = {"general": general, "memes": meme,
                   "games": games, "economy": economy}
     await ctx.send(categories[category] if category else help)
