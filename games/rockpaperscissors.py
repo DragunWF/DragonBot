@@ -45,7 +45,7 @@ async def choose(ctx, player_choice: str):
             await ctx.send("Congrats you win the game!")
             reward = game_reward(ctx.author.id, "rockpaperscissors")
             if reward:
-                ctx.send(reward)
+                await ctx.send(reward)
             delete_game()
         elif game.ai_points >= 3:
             await ctx.send("LEL I WIN YOU LOSE LELELELELELELELELLELELELELELEL")
