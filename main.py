@@ -61,32 +61,60 @@ async def on_message_edit(message, edited):
 
 
 @client.command()
-async def help(ctx):
-    await ctx.send("""
->>> **List of commands:** :robot:
-`- info`
-`- inspire`
-`- linux`
-`- copypasta (Might be nsfw sometimes)`
-`- nft <currency> (If no currency is provided, the default will be php)`
+async def help(ctx, category=None):
+    help = """
+>>> **List of Commands:** :robot:
+`- d!help general`
+`- d!help memes`
+`- d!help game`
+`- d!help economy`
+"""
+    general = """
+>>> **List of General Commands:**
+`- d!info`
+`- d!inspire`
+`- d!nft <currency>`
+`- d!linux`
+"""
+    meme = """
+>>> **List of Meme Commands:** :japanese_goblin:
+`- d!meme`
+`- d!homicide (Comedy Homicide)`
+`- d!coder (Programmer meme)`
+`- d!copypasta`
+"""
+    games = """
+>>> **Game Commands:** :game_die:
 
-**Meme Commands:** :japanese_goblin: 
-`- meme`
-`- homicide (Comedy Homicide)`
-`- coder (Programmer meme)`
+**TicTacToe:**
+`- d!ttt <player2>`
+`- place <tile>`
 
-**Game Commands:** :game_die:
-`- ttt <person you would like to play with> (TicTacToe)
-- place <tile>`
-`- gg (Guess the number game)
-- guess <number>`
-`- rps (Rock, paper, scissors)
-- choose <option>`
-`- fight <person you want to fight>`
-`- option <attack or defend>`
-`- endgame`
-- *(More will be added in the future)* :zap:
-""")
+**Guessing Game:**
+`- d!gg`
+`- d!guess <number>` or `d!g <guess>`
+
+**Rock, Paper, Scissors:**
+`- d!rps `
+`- d!choose <option>` or `d!c <option>`
+
+**Fighting Game:**
+`- fight <player2>`
+`- option <attack or defend>` or `d!opt <attack or defend>`
+
+**For ending games:**
+`- d!endgame` or `d!eg`
+"""
+    economy = """
+**Economy Commands:** :money_with_wings:
+- `d!register`
+- `d!scavenge`
+- `d!gold`
+*(Still work in progress)*
+"""
+    categories = {"general": general, "memes": meme,
+                  "games": games, "economy": economy}
+    await ctx.send(categories[category] if category else help)
 
 
 @client.command()
