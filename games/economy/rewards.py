@@ -5,10 +5,10 @@ data_location = "data/economy_data.csv"
 
 
 def game_reward(player_id, game):
-    with open(data_location, "r") as file:
+    with open(data_location, "r", newline="") as file:
         reader = [x for x in list(csv.reader(file)) if x]
         reader = list(map(lambda arr: [int(arr[0]), int(
-            arr[1]), int(arr[2]), arr[3], arr[4]], reader))
+            arr[1]), int(arr[2]), arr[3], arr[4], arr[5]], reader))
         for data_set in reader:
             if player_id == data_set[0]:
                 index = reader.index(data_set)
@@ -21,7 +21,7 @@ def game_reward(player_id, game):
         min_num, max_num = reward_lvls[game][0], reward_lvls[game][1]
         gold_reward = random.randint(min_num, max_num)
         reader[index][2] += gold_reward
-        with open(data_location, "w") as data:
+        with open(data_location, "w", newline="") as data:
             writer = csv.writer(data)
             for row in reader:
                 writer.writerow(row)
