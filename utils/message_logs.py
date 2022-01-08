@@ -48,3 +48,7 @@ Edited Message: {after}
     server_log_file = servers[guild] if guild in ids else "chat_logs_4.txt"
     with open(f"data/{server_log_file}", "a") as file:
         file.write(log)
+
+
+def deleted_message_log():
+    pass
