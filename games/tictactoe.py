@@ -1,6 +1,7 @@
 import discord
 import random
 from discord.ext import commands
+from .economy.rewards import game_reward
 
 
 class TicTacToe:
@@ -62,6 +63,9 @@ async def place(ctx, tile: int):
             TicTacToe.players_playing.pop(
                 TicTacToe.players_playing.index((game.player1, game.player2)))
             TicTacToe.games_running.pop(TicTacToe.games_running.index(game))
+            reward = game_reward(ctx.author.id, "tictactoe")
+            if reward:
+                await ctx.send(reward)
 
         async def check_win():
             conditions = TicTacToe.winning_conditions

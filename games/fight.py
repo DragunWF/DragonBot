@@ -1,6 +1,7 @@
 import discord
 import random
 from discord.ext import commands
+from .economy.rewards import game_reward
 
 
 class Fight:
@@ -54,6 +55,9 @@ async def choice(ctx, choice: str):
                     Fight.players_playing.index((game.player1, game.player2)))
                 Fight.players_playing.pop(
                     Fight.players_playing.index((game.player1, game.player2)))
+                reward = game_reward(ctx.author.id, "fight")
+                if reward:
+                    await ctx.send(reward)
             gameover = False
             players = (game.p1_health, game.p2_health)
             for player in players:

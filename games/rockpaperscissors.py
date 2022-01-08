@@ -1,5 +1,6 @@
 import random
 from discord.ext import commands
+from .economy.rewards import game_reward
 
 
 class RPS:
@@ -42,6 +43,9 @@ async def choose(ctx, player_choice: str):
             RPS.games_running.pop(RPS.games_running.index(game))
         if game.player_points >= 3:
             await ctx.send("Congrats you win the game!")
+            reward = game_reward(ctx.author.id, "rockpaperscissors")
+            if reward:
+                ctx.send(reward)
             delete_game()
         elif game.ai_points >= 3:
             await ctx.send("LEL I WIN YOU LOSE LELELELELELELELELLELELELELELEL")
