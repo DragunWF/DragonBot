@@ -66,11 +66,11 @@ async def help(ctx, category=None):
 >>> **List of Commands:** :robot:
 `- d!help general`
 `- d!help memes`
-`- d!help game`
+`- d!help games`
 `- d!help economy`"""
 
     general = """
->>> **List of General Commands:**
+>>> **List of General Commands:** :classical_building:
 `- d!info`
 `- d!inspire`
 `- d!nft <currency>`
@@ -107,9 +107,9 @@ async def help(ctx, category=None):
 
     economy = """
 **Economy Commands:** :money_with_wings:
-- `d!register`
-- `d!scavenge`
-- `d!gold`
+- `d!e register`
+- `d!e scavenge`
+- `d!e gold`
 *(Still work in progress)*"""
     categories = {"general": general, "memes": meme,
                   "games": games, "economy": economy}
