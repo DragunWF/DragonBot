@@ -7,7 +7,7 @@ import csv
 data_location = "data/economy_data.csv"
 
 list_of_commands = """
-**List of commands:**
+>>> **List of commands:**
 - Register
 - Gold
 - Scavenge
@@ -19,6 +19,10 @@ list_of_jobs = """
 - Miner
 - Engineer
 """
+
+shop_items = """
+>>> List of Shop Items: :shopping_cart:
+- *Coming Soon* """
 
 
 def register(player, username):
@@ -110,6 +114,9 @@ def action(command, player_id, username=None, option=None):
             return list_of_jobs
 
         if command == "shop":
+            return shop_items
+
+        if command == "buy":
             pass
     else:
         return "You are not registered, Type `d!economy register` to register."
