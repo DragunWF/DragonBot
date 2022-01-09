@@ -10,7 +10,7 @@ from utils.uptime import keep_alive
 import games.tictactoe as ttt
 import games.guess as gg
 import games.rockpaperscissors as rps
-import games.fight as fight
+import games.fight as fg
 import games.economy.actions as eco
 
 from rich.console import Console
@@ -110,6 +110,7 @@ async def help(ctx, category=None):
 - `d!e register`
 - `d!e scavenge`
 - `d!e gold`
+- `d!e rich`
 *(Still work in progress)*"""
     categories = {"general": general, "memes": meme,
                   "games": games, "economy": economy}
@@ -233,27 +234,27 @@ async def choose_error(ctx, error):
 # ---Fight Game---
 @client.command()
 async def fight(ctx, player2: discord.Member):
-    await fight.fight(ctx, player2)
+    await fg.fight(ctx, player2)
 
 
-@client.command(aliases=("option", "opt"))
+@client.command(aliases=("option", "opt", "o"))
 async def choice(ctx, choice: str):
-    await fight.choice(ctx, choice)
+    await fg.choice(ctx, choice)
 
 
 @client.command()
 async def flee(ctx):
-    await fight.flee(ctx)
+    await fg.flee(ctx)
 
 
 @fight.error
 async def fight_error(ctx, error):
-    await fight.fight_error(ctx, error)
+    await fg.fight_error(ctx, error)
 
 
 @choice.error
 async def choice_error(ctx, error):
-    await fight.choice_error(ctx, error)
+    await fg.choice_error(ctx, error)
 
 
 # ---End game---
