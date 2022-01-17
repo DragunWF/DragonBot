@@ -72,16 +72,8 @@ Channel: {channel}
 
 
 def message_snipe():
-    global last_deleted_msg, deleted_msg_author
-    return f"""
->>> **(Snipe)**
-`{deleted_msg_author}: {last_deleted_msg}`
-"""
+    return f">>> `{deleted_msg_author}: {last_deleted_msg}`"
 
 
 def edited_message_snipe():
-    global last_edited_msg, edited_msg_author
-    return f"""
->>> **(Edit Snipe)**
-`{edited_msg_author}: {last_edited_msg}`
-"""
+    return f">>> `{edited_msg_author}: {last_edited_msg}`"
