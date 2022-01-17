@@ -1,4 +1,4 @@
-import time
+import random
 from rich.console import Console
 
 console = Console()
@@ -16,6 +16,9 @@ ids = (440134996984856577, 414052037580554251, 404814305872183296)
 # Global variables for message sniping
 last_deleted_msg, deleted_msg_author = "", ""
 last_edited_msg, edited_msg_author = "", ""
+no_snipe_responses = ("There isn't anything to snipe!",
+                      "Sorry, but there's nothing to snipe.",
+                      "No message to snipe unfortunately.")
 
 
 def message_log(author, content, channel, guild, different_channel):
@@ -55,25 +58,29 @@ Edited Message: {after}
 
 
 def deleted_message_log(author, content, channel, guild):
-    log = f"""
-Message Delete Event:
+    log = f"""Message Delete Event:
 Guild: {guild}
 Channel: {channel}
 {author}: {content}
 """
-    console.log(f"""
-[red][bold]Message Delete Event:[/bold][/red]
-[blue][bold][underline]Guild: {guild}[/underline][/bold][/blue]
-[yellow][bold][underline]Channel: {channel}[/underline][/bold][/yellow]
+    console.log(f"""[red][bold]Message Delete Event:[/bold][/red]
+[blue][bold]Guild: {guild}[/bold][/blue]
+[yellow][bold]Channel: [underline]{channel}[/underline][/bold][/yellow]
 {author}: {content}
 """)
-    with open(f"data/deleted_msgs.txt") as file:
+    with open("data/deleted_msgs.txt", "a") as file:
         file.write(log)
 
 
 def message_snipe():
-    return f">>> `{deleted_msg_author}: {last_deleted_msg}`"
+    if last_deleted_msg:
+        return f">>> `{deleted_msg_author}: {last_deleted_msg}`"
+    else:
+        return random.choice(no_snipe_responses)
 
 
 def edited_message_snipe():
-    return f">>> `{edited_msg_author}: {last_edited_msg}`"
+    if last_edited_msg:
+        return f">>> `{edited_msg_author}: {last_edited_msg}`"
+    else:
+        return random.choice(no_snipe_responses)
