@@ -54,10 +54,30 @@ async def on_message(message):
 async def on_message_edit(message, edited):
     global previous_channel
     channel = message.channel
+    mlogs.edited_msg_author = message.author
+    mlogs.last_edited_msg = message.content
     mlogs.message_edit_log(message.author.name,
                            edited.content, message.content, channel,
                            message.guild.id, previous_channel != channel)
     previous_channel = channel
+
+
+@client.event
+async def on_message_delete(message):
+    mlogs.deleted_msg_author = message.author
+    mlogs.last_deleted_msg = message.content
+    mlogs.deleted_message_log(message.author, message.content,
+                              message.channel, message.guild)
+
+
+@client.command()
+async def snipe(ctx):
+    await ctx.send(mlogs.message_snipe())
+
+
+@client.command()
+async def esnipe(ctx):
+    await ctx.send(mlogs.edited_message_snipe())
 
 
 @client.command()
@@ -71,10 +91,16 @@ async def help(ctx, category=None):
 
     general = """
 >>> **List of General Commands:** :classical_building:
+
+**Misc Commands:**
 `- d!info`
 `- d!inspire`
 `- d!nft <currency>`
-`- d!linux`"""
+`- d!linux`
+
+**Snipe Commands:** :telescope:
+`- d!snipe`
+`- d!esnipe`"""
 
     meme = """
 >>> **List of Meme Commands:** :japanese_goblin:
@@ -106,7 +132,7 @@ async def help(ctx, category=None):
 `- d!endgame` or `d!eg`"""
 
     economy = """
-**Economy Commands:** :money_with_wings:
+>>> **Economy Commands:** :money_with_wings:
 - `d!e register`
 - `d!e scavenge`
 - `d!e gold`
