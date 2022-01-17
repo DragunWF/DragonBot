@@ -92,7 +92,7 @@ async def help(ctx, category=None):
     general = """
 >>> **List of General Commands:** :classical_building:
 
-**Misc Commands:**
+**Misc Commands: :cityscape:**
 `- d!info`
 `- d!inspire`
 `- d!nft <currency>`
