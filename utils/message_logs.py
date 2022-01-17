@@ -13,6 +13,10 @@ previous = {440134996984856577: None,
             404814305872183296: None, 414052037580554251: None}
 ids = (440134996984856577, 414052037580554251, 404814305872183296)
 
+# Global variables for message sniping
+last_deleted_msg, deleted_msg_author = "", ""
+last_edited_msg, edited_msg_author = "", ""
+
 
 def message_log(author, content, channel, guild, different_channel):
     log = ""
@@ -50,5 +54,34 @@ Edited Message: {after}
         file.write(log)
 
 
-def deleted_message_log():
-    pass
+def deleted_message_log(author, content, channel, guild):
+    log = f"""
+Message Delete Event:
+Guild: {guild}
+Channel: {channel}
+{author}: {content}
+"""
+    console.log(f"""
+[red][bold]Message Delete Event:[/bold][/red]
+[blue][bold][underline]Guild: {guild}[/underline][/bold][/blue]
+[yellow][bold][underline]Channel: {channel}[/underline][/bold][/yellow]
+{author}: {content}
+""")
+    with open(f"data/deleted_msgs.txt") as file:
+        file.write(log)
+
+
+def message_snipe():
+    global last_deleted_msg, deleted_msg_author
+    return f"""
+>>> **(Snipe)**
+`{deleted_msg_author}: {last_deleted_msg}`
+"""
+
+
+def edited_message_snipe():
+    global last_edited_msg, edited_msg_author
+    return f"""
+>>> **(Edit Snipe)**
+`{edited_msg_author}: {last_edited_msg}`
+"""
