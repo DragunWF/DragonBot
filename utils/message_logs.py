@@ -74,13 +74,13 @@ Channel: {channel}
 
 def message_snipe():
     if last_deleted_msg:
-        return f">>> `{deleted_msg_author}: {last_deleted_msg}`"
+        return f">>> `Deleted Message:\n{deleted_msg_author}: {last_deleted_msg}`"
     else:
         return random.choice(no_snipe_responses)
 
 
 def edited_message_snipe():
     if last_edited_msg:
-        return f">>> `{edited_msg_author}: {last_edited_msg}`"
+        return f">>> `Edited Message:\n{edited_msg_author}: {last_edited_msg}`"
     else:
         return random.choice(no_snipe_responses)
