@@ -8,16 +8,12 @@ class Fight:
     players_playing = []
     games_running = []
 
-    def __init__(self, player1, player2, p1_name, p2_name, p1_health=100, p2_health=100, p1_lvl=1, p2_lvl=1, turn=""):
-        self.player1 = player1
-        self.player2 = player2
-        self.p1_name = p1_name
-        self.p2_name = p2_name
-        self.p1_health = p1_health
-        self.p2_health = p2_health
-        self.p1_def_lvl = p1_lvl
-        self.p2_def_lvl = p2_lvl
-        self.turn = turn
+    def __init__(self, player1, player2, p1_name, p2_name):
+        self.player1, self.player2 = player1, player2  # IDs
+        self.p1_name, self.p2_name = p1_name, p2_name
+        self.p1_health, self.p2_health = 100, 100
+        self.p1_def_lvl, self.p2_def_lvl = 1, 1
+        self.turn = ""
 
 
 async def fight(ctx, player2: discord.Member):

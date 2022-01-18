@@ -8,16 +8,15 @@ class TicTacToe:
     players_playing = []
     games_running = []
 
-    def __init__(self, player1, player2, turn=None, board=None, mark=":regional_indicator_x:"):
-        self.player1 = player1
-        self.player2 = player2
+    def __init__(self, player1, player2):
+        self.player1, self.player2 = player1, player2  # IDs
         self.turn = ""
         self.board = [
             ":white_large_square:", ":white_large_square:", ":white_large_square:",
             ":white_large_square:", ":white_large_square:", ":white_large_square:",
             ":white_large_square:", ":white_large_square:", ":white_large_square:"
         ]
-        self.mark = mark
+        self.mark = ":regional_indicator_x:"
     winning_conditions = (
         (0, 1, 2),
         (3, 4, 5),

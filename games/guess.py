@@ -7,10 +7,10 @@ class Guessing:
     players_playing = []
     games_running = []
 
-    def __init__(self, player, guess=None, retries=0, correct_number=None):
+    def __init__(self, player):
         self.player = player
-        self.guess = guess
-        self.retries = retries
+        self.guess = None
+        self.retries = 0
         self.correct_number = random.randint(1, 100)
 
 

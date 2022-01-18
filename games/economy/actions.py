@@ -1,24 +1,17 @@
 import random
-import time
 import csv
 
 # It ignored the map function because of the empty lines in the csv file
 
 data_location = "data/economy_data.csv"
 
-list_of_commands = """
->>> **List of commands:**
-- Register
-- Gold
-- Scavenge"""
-
 list_of_jobs = """
->>> **List of Jobs:**
+>>> **List of Jobs: :hammer:**
 - *(Coming Soon)*
 """
 
 shop_items = """
->>> List of Shop Items: :shopping_cart:
+>>> **List of Shop Items:** :shopping_cart:
 - *Coming Soon*"""
 
 
@@ -75,9 +68,6 @@ def action(command, player_id, username=None, option=None):
                 registered = True
                 break
 
-    if command == "help":
-        return list_of_commands
-
     if command == "register":
         if not registered:
             return register(player_id, username)
@@ -95,12 +85,17 @@ def action(command, player_id, username=None, option=None):
                                    int(player_data[2]), player_data[3], player_data[4], player_data[5]]
                     break
 
-        commands = {"scavenge": scavenge(player_data),
+        commands = {"scavenge": scavenge,
                     "gold": f"You have **{'{:,}'.format(player_data[2])} gold**.",
-                    "rich": rich_leaderboard(), "jobs": list_of_jobs, "shop": shop_items, }
+                    "rich": rich_leaderboard, "jobs": list_of_jobs, "shop": shop_items, }
         for option in commands:
             if command == option:
-                return option[command]
+                if type(commands[option]) == type(action):
+                    if option == "scavenge":
+                        return commands[option](player_data)
+                    else:
+                        return commands[option]()
+                return commands[option]
 
     else:
         return "You are not registered, Type `d!economy register` to register."

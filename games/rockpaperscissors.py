@@ -7,12 +7,12 @@ class RPS:
     players_playing = []
     games_running = []
 
-    def __init__(self, player, option="", ai_option=None, player_points=0, ai_points=0):
+    def __init__(self, player):
         self.player = player
-        self.option = option
-        self.ai_option = ai_option
-        self.player_points = player_points
-        self.ai_points = ai_points
+        self.option = ""
+        self.ai_option = None
+        self.player_points = 0
+        self.ai_points = 0
 
 
 async def rock_paper_scissors(ctx):
