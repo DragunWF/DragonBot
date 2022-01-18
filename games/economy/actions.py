@@ -10,19 +10,16 @@ list_of_commands = """
 >>> **List of commands:**
 - Register
 - Gold
-- Scavenge
-"""
+- Scavenge"""
 
 list_of_jobs = """
 >>> **List of Jobs:**
-- Farmer
-- Miner
-- Engineer
+- *(Coming Soon)*
 """
 
 shop_items = """
 >>> List of Shop Items: :shopping_cart:
-- *Coming Soon* """
+- *Coming Soon*"""
 
 
 def register(player, username):
@@ -98,25 +95,14 @@ def action(command, player_id, username=None, option=None):
                                    int(player_data[2]), player_data[3], player_data[4], player_data[5]]
                     break
 
-        if command == "scavenge":
-            return scavenge(player_data)
+        commands = {"scavenge": scavenge(player_data),
+                    "gold": f"You have **{'{:,}'.format(player_data[2])} gold**.",
+                    "rich": rich_leaderboard(), "jobs": list_of_jobs, "shop": shop_items, }
+        for option in commands:
+            if command == option:
+                return option[command]
 
-        if command == "gold":
-            return f"You have **{'{:,}'.format(player_data[2])} gold**."
-
-        if command == "rich":
-            return rich_leaderboard()
-
-        if command == "work":
-            pass
-
-        if command == "jobs":
-            return list_of_jobs
-
-        if command == "shop":
-            return shop_items
-
-        if command == "buy":
-            pass
     else:
         return "You are not registered, Type `d!economy register` to register."
+
+# Add a buy command in the future once the shop is setup

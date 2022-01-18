@@ -60,12 +60,12 @@ Edited Message: {after}
 def deleted_message_log(author, content, channel, guild):
     log = f"""Message Delete Event:
 Guild: {guild}
-Channel: {channel}
+Channel: #{channel}
 {author}: {content}
 """
     console.log(f"""[red][bold]Message Delete Event:[/bold][/red]
 [blue][bold]Guild: {guild}[/bold][/blue]
-[yellow][bold]Channel: [underline]{channel}[/underline][/bold][/yellow]
+[yellow][bold]Channel: [underline]#{channel}[/underline][/bold][/yellow]
 {author}: {content}
 """)
     with open("data/deleted_msgs.txt", "a") as file:

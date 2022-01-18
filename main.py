@@ -53,6 +53,10 @@ async def on_message(message):
 @client.event
 async def on_message_edit(message, edited):
     global previous_channel
+
+    if message.author == client.user:
+        return
+
     channel = message.channel
     mlogs.edited_msg_author = message.author
     mlogs.last_edited_msg = message.content
@@ -64,6 +68,8 @@ async def on_message_edit(message, edited):
 
 @client.event
 async def on_message_delete(message):
+    if message.author == client.user:
+        return
     mlogs.deleted_msg_author = message.author
     mlogs.last_deleted_msg = message.content
     mlogs.deleted_message_log(message.author, message.content,
