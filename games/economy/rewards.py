@@ -1,5 +1,6 @@
 import random
 import csv
+from string import digits
 
 data_location = "data/economy_data.csv"
 
@@ -29,6 +30,8 @@ def game_reward(player_id, game):
 
 
 def jackbox_reward(player_id):
+    player_id = int("".join([x for x in player_id if x in digits]))
+
     with open(data_location, "r") as file:
         reader = [x for x in list(csv.reader(file)) if x]
         reader = list(map(lambda arr: [int(arr[0]), int(
@@ -39,8 +42,7 @@ def jackbox_reward(player_id):
                 break
         else:
             return "The player you're rewarding either doesn't exist or isn't registered"
-
-        gold_reward = random.randint(2000, 3000)
+        gold_reward = random.randint(2500, 5000)
         reader[index][2] += gold_reward
         with open(data_location, "w", newline="") as data:
             writer = csv.writer(data)
