@@ -38,7 +38,7 @@ def view_nft_values(currency_type=""):
 
         currency = currency_type.upper()
         return f"""
-**Cryptocurrency Token Values:** :moneybag:
+>>> **Cryptocurrency Token Values:** :moneybag:
 BitCoin (BTC): `{btc_value} {currency}`
 BinanceCoin (BNB): `{bnb_value} {currency}`
 PlantsVsUndead Token (PVU): `{pvu_value} {currency}`
@@ -52,17 +52,13 @@ Bomber Coin (BCOIN): `{bomb_value} {currency}`"""
         return "Unsupported Currency"
 
 
-def get_meme(type=""):
-    if type == "memes":
-        subs = ("shitposting", "comedyheaven", "ChoosingBeggars")
-    elif type == "coder":
-        subs = ("ProgrammerHumor", "programmingmemes")
-    elif type == "homicide":
-        subs = ("comedyhomicide", "ComedyCemetery")
-    elif type == "linux":
-        subs = ("unixporn", "unixporn")
+def get_meme(genre=""):
+    genres = {"memes": ("shitposting", "comedyheaven", "ChoosingBeggars"),
+              "coder": ("ProgrammerHumor", "programmingmemes"),
+              "homicide": ("comedyhomicide", "ComedyCemetery"),
+              "linux": ("unixporn", "unixporn")}
 
-    subreddit = reddit.subreddit(random.choice(subs))
+    subreddit = reddit.subreddit(random.choice(genres[genre]))
     all_subs = []
     hot = subreddit.hot(limit=60)
 
