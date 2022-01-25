@@ -1,5 +1,6 @@
 import random
 import csv
+from .rewards import jackbox_reward
 
 # It ignored the map function because of the empty lines in the csv file
 
@@ -59,7 +60,7 @@ def scavenge(player_data):
     return f"You scavenged **{gold_gained} gold** from {random.choice(locations)}!"
 
 
-def action(command, player_id, username=None, option=None):
+def action(command, arg, player_id, username=None):
     registered = False
     with open(data_location, "r", newline="") as file:
         data = [x for x in list(csv.reader(file)) if x]
@@ -88,6 +89,9 @@ def action(command, player_id, username=None, option=None):
         commands = {"scavenge": scavenge,
                     "gold": f"You have **{'{:,}'.format(player_data[2])} gold**.",
                     "rich": rich_leaderboard, "jobs": list_of_jobs, "shop": shop_items, }
+
+        ruler_commands = {"reward": jackbox_reward}
+
         for option in commands:
             if command == option:
                 if type(commands[option]) == type(action):
@@ -96,6 +100,14 @@ def action(command, player_id, username=None, option=None):
                     else:
                         return commands[option]()
                 return commands[option]
+
+        for option in ruler_commands:
+            if command == option:
+                if player_data[0] == 408972598798450688:
+                    error_msg = "You forgot to enter the player you were going to reward..."
+                    return ruler_commands[option](arg) if arg else error_msg
+                else:
+                    return "Only my master itself can run this command... nerd"
 
     else:
         return "You are not registered, Type `d!economy register` to register."
