@@ -39,11 +39,11 @@ def view_nft_values(currency_type=""):
         currency = currency_type.upper()
         return f"""
 >>> **Cryptocurrency Token Values:** :moneybag:
-BitCoin (BTC): `{btc_value} {currency}`
-BinanceCoin (BNB): `{bnb_value} {currency}`
-PlantsVsUndead Token (PVU): `{pvu_value} {currency}`
-Smooth Love Potion (SLP): `{slp_value} {currency}`
-Bomber Coin (BCOIN): `{bomb_value} {currency}`"""
+BitCoin (BTC): `{'{:,}'.format(btc_value)} {currency}`
+BinanceCoin (BNB): `{'{:,}'.format(bnb_value)} {currency}`
+PlantsVsUndead Token (PVU): `{'{:,}'.format(pvu_value)} {currency}`
+Smooth Love Potion (SLP): `{'{:,}'.format(slp_value)} {currency}`
+Bomber Coin (BCOIN): `{'{:,}'.format(bomb_value)} {currency}`"""
     except KeyError:
         responses = ("That's an... Invalid input", "Well that's an invalid input",
                      "You need to enter a valid currency", "Invalid input")
