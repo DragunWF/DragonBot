@@ -200,8 +200,8 @@ async def linux(ctx):
 
 # -----Economy Commands------
 @client.command(aliases=("e", "eco"))
-async def economy(ctx, action: str, argument=None):
-    await ctx.send(eco.action(action.lower().strip(), argument, ctx.author.id, ctx.author))
+async def economy(ctx, action: str, argument=None, argument_2=None):
+    await ctx.send(eco.action(action.lower().strip(), argument, argument_2, ctx.author.id, ctx.author))
 
 
 @economy.error
