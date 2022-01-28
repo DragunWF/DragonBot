@@ -1,6 +1,6 @@
 import random
 import csv
-from .rewards import jackbox_reward
+from .rewards import jackbox_reward, custom_reward
 
 # It ignored the map function because of the empty lines in the csv file
 
@@ -35,6 +35,8 @@ def rich_leaderboard():
         values.sort(reverse=True)
         placing = 1
         for data in values:
+            if placing >= 11:
+                break
             output += f"**{placing}:** `{data[1]}` = **{'{:,}'.format(data[0])} gold**\n"
             placing += 1
     return f"""
@@ -45,7 +47,7 @@ def rich_leaderboard():
 def scavenge(player_data):
     locations = ("caves", "trash cans", "bushes",
                  "Tom's bag", "Tom's destroyed linux machine", "Warcook's house",
-                 "CPT's cave", "shoes", "DJDAN's anime pillows", "dumpsters", "CPT's Chalice")
+                 "CPT's cave", "shoes", "DJDAN's pillows", "dumpsters", "CPT's Chalice")
     gold_gained = random.randint(5, 25)
     with open(data_location, "r", newline="") as data:
         data_sets = [x for x in list(csv.reader(data)) if x]
@@ -60,7 +62,7 @@ def scavenge(player_data):
     return f"You scavenged **{gold_gained} gold** from {random.choice(locations)}!"
 
 
-def action(command, arg, player_id, username=None):
+def action(command, arg, arg_2, player_id, username=None):
     registered = False
     with open(data_location, "r", newline="") as file:
         data = [x for x in list(csv.reader(file)) if x]
@@ -89,8 +91,7 @@ def action(command, arg, player_id, username=None):
         commands = {"scavenge": scavenge,
                     "gold": f"You have **{'{:,}'.format(player_data[2])} gold**.",
                     "rich": rich_leaderboard, "jobs": list_of_jobs, "shop": shop_items, }
-
-        ruler_commands = {"reward": jackbox_reward}
+        ruler_commands = {"reward": jackbox_reward, "custom": custom_reward}
 
         for option in commands:
             if command == option:
@@ -103,9 +104,15 @@ def action(command, arg, player_id, username=None):
 
         for option in ruler_commands:
             if command == option:
+                # Going to optimize this part in the future
                 if player_data[0] == 408972598798450688:
-                    error_msg = "You forgot to enter the player you were going to reward..."
-                    return ruler_commands[option](arg) if arg else error_msg
+                    if command == "custom":
+                        if not arg or not arg_2:
+                            return "You forgot to add an argument."
+                        return ruler_commands[option](arg, arg_2)
+                    else:
+                        error_msg = "You forgot to enter the player you were going to reward..."
+                        return ruler_commands[option](arg) if arg else error_msg
                 else:
                     return "Only my master itself can run this command... nerd"
 
