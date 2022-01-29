@@ -118,6 +118,6 @@ def action(command, arg, arg_2, player_id, username=None):
                     return "Only my master himself can run this command... nerd"
 
     else:
-        return "You are not registered, Type `d!economy register` to register."
+        return "You are not registered, Type `d!e register` to register."
 
 # Add a buy command in the future once the shop is setup

@@ -155,9 +155,7 @@ async def info(ctx):
     await ctx.send("""
 **Hello, This is a bot created by** `DragonWF#9321`
 ```
-This is basically just a personal bot filled with fun commands and some practical ones like 
-`d!nft` to view cryptocurrency values. Just for some extra information, you can earn gold *(Bot's game currency)*
-just by winning mini-games.
+This is a personalized bot for my server, Dragon's Castle. It is filled with fun commands and practical ones. This is my first discord bot so don't expect too much about it but anyways, I hope you peeps like it!
 ```
 """)
 
@@ -208,7 +206,7 @@ async def economy(ctx, action: str, argument=None, argument_2=None):
 @economy.error
 async def economy_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
-        await ctx.send("You can type `d!economy help` to get the list of commands")
+        await ctx.send("You can type `d!help economy` to get the list of commands")
 
 
 # -----TicTacToe-----
