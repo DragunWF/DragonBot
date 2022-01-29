@@ -7,6 +7,7 @@ import utils.keyword_responses as keyword
 import utils.message_logs as mlogs
 from utils.uptime import keep_alive
 
+import games.counting as count
 import games.tictactoe as ttt
 import games.guess as gg
 import games.rockpaperscissors as rps
@@ -289,7 +290,12 @@ async def choice_error(ctx, error):
     await fg.choice_error(ctx, error)
 
 
-# ---End game---
+# Counting
+@client.command()
+async def setup(ctx):
+    await ctx.send(count.create_counting_id(ctx.guild.id, ctx.channel.id))
+
+
 @client.command(aliases=("eg", "egame", "endg"))
 async def endgame(ctx):
     games = (gg.Guessing, rps.RPS)
