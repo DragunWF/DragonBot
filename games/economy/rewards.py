@@ -65,6 +65,8 @@ def custom_reward(player_id, amount):
                 break
         else:
             return "The player you're rewarding either doesn't exist or isn't registered"
+
+        amount = int(amount)
         reader[index][2] += amount
         with open(data_location, "w", newline="") as data:
             writer = csv.writer(data)
@@ -86,6 +88,8 @@ def punish_player(player_id, amount):
                 break
         else:
             return "The player you're punishing either doesn't exist or isn't registered"
+
+        amount = int(amount)
         reader[index][2] -= amount
         with open(data_location, "w", newline="") as data:
             writer = csv.writer(data)
