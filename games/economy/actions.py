@@ -47,19 +47,38 @@ def rich_leaderboard():
 def scavenge(player_data):
     locations = ("caves", "trash cans", "bushes",
                  "Tom's bag", "Tom's destroyed linux machine", "Warcook's house",
-                 "CPT's cave", "shoes", "DJDAN's pillows", "dumpsters", "CPT's Chalice")
-    gold_gained = random.randint(5, 25)
+                 "CPT's cave", "shoes", "DJDAN's pillows", "dumpsters", "CPT's Chalice",
+                 "the Winter Company", "Aznile", "the Dragon Order", "a bakery", "CPT's house",
+                 "YouTube HQ", "redditors", "Lothern", "Larry's home")
+    event_chance = random.randint(1, 20)
+    statement = ""
+
+    if event_chance != 1:
+        gold_change = random.randint(5, 25)
+        statement = f"You scavenged **{gold_change} gold** from {random.choice(locations)}!"
+    else:
+        gold_change = -random.randint(100, 250)
+        gold_statement = abs(gold_change)
+        bad_events = (
+            f"While scavenging, a wild Extalia appeared and stole **{gold_statement} gold** from you!",
+            f"On your way to the scavenging site, an armed khajiit appeared and robbed you of **{gold_statement} gold**!",
+            f"On the scavenging site, CPT spotted you and taxed you of **{gold_statement} gold**!",
+            f"As you were scavenging, Tom sneaked up behind you and stole **{gold_statement} gold** silently.",
+            f"While scavenging, you suddenly encountered an armed thief and got robbed of **{gold_statement} gold**.")
+        statement = random.choice(bad_events)
+
     with open(data_location, "r", newline="") as data:
         data_sets = [x for x in list(csv.reader(data)) if x]
         data_sets = list(map(lambda arr: [int(arr[0]), int(
             arr[1]), int(arr[2]), arr[3], arr[4], arr[5]], data_sets))
         index = data_sets.index(player_data)
-        data_sets[index][2] += gold_gained
+        data_sets[index][2] += gold_change
         with open(data_location, "w", newline="") as file:
             writer = csv.writer(file)
             for row in data_sets:
                 writer.writerow(row)
-    return f"You scavenged **{gold_gained} gold** from {random.choice(locations)}!"
+
+    return statement
 
 
 def action(command, arg, arg_2, player_id, username=None):
