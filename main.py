@@ -153,7 +153,7 @@ async def help(ctx, category=None):
 @client.command()
 async def info(ctx):
     await ctx.send("""
-**Hello, This is a bot created by** `DragonWF#9321`
+**Hello, This is a bot created by** `DragonWF#9321`.
 ```
 This is a personalized bot for my server, Dragon's Castle. It is filled with fun commands and practical ones. This is my first discord bot so don't expect too much about it but anyways, I hope you peeps like it!
 ```
@@ -206,7 +206,7 @@ async def economy(ctx, action: str, argument=None, argument_2=None):
 @economy.error
 async def economy_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument) or isinstance(error, commands.BadArgument):
-        await ctx.send("You can type `d!help economy` to get the list of commands")
+        await ctx.send("You can type `d!help economy` to get the list of commands.")
 
 
 # -----TicTacToe-----

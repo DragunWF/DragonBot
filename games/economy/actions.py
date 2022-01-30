@@ -57,7 +57,7 @@ def scavenge(player_data):
         gold_change = random.randint(5, 25)
         statement = f"You scavenged **{gold_change} gold** from {random.choice(locations)}!"
     else:
-        gold_change = -random.randint(100, 250)
+        gold_change = -random.randint(100, 350)
         gold_statement = abs(gold_change)
         bad_events = (
             f"While scavenging, a wild Extalia appeared and stole **{gold_statement} gold** from you!",
