@@ -18,8 +18,8 @@ def game_reward(player_id, game):
         else:
             return False
 
-        reward_lvls = {"guess": (50, 150), "rockpaperscissors": (350, 500),
-                       "fight": (250, 350), "tictactoe": (400, 450)}
+        reward_lvls = {"guess": (85, 200), "rockpaperscissors": (350, 550),
+                       "fight": (400, 650), "tictactoe": (450, 600)}
         min_num, max_num = reward_lvls[game][0], reward_lvls[game][1]
         gold_reward = random.randint(min_num, max_num)
         reader[index][2] += gold_reward
@@ -42,14 +42,14 @@ def jackbox_reward(player_id):
                 index = reader.index(data_set)
                 break
         else:
-            return "The player you're rewarding either doesn't exist or isn't registered"
+            return "The player you're rewarding either doesn't exist or isn't registered."
         gold_reward = random.randint(2500, 5000)
         reader[index][2] += gold_reward
         with open(data_location, "w", newline="") as data:
             writer = csv.writer(data)
             for row in reader:
                 writer.writerow(row)
-        return f"Congrats, <@{player_id}>. You have been rewarded with **{'{:,}'.format(gold_reward)}** gold for winning a jackbox game!"
+        return f"Congrats, <@{player_id}>. You have been rewarded with **{'{:,}'.format(gold_reward)} gold** for winning a jackbox game!"
 
 
 def custom_reward(player_id, amount):
@@ -72,7 +72,7 @@ def custom_reward(player_id, amount):
             writer = csv.writer(data)
             for row in reader:
                 writer.writerow(row)
-        return f"Congrats, <@{player_id}>, you have been generously rewarded with **{'{:,}'.format(amount)} gold** by the great great DragonWF."
+        return f"Congrats, <@{player_id}>. You have been generously rewarded with **{'{:,}'.format(amount)} gold** by the great great DragonWF."
 
 
 def punish_player(player_id, amount):
@@ -95,4 +95,4 @@ def punish_player(player_id, amount):
             writer = csv.writer(data)
             for row in reader:
                 writer.writerow(row)
-        return f"Congrats, <@{player_id}>, you have been punished and **{'{:,}'.format(amount)} gold** has been taken from you."
+        return f"Congrats, <@{player_id}>. You have been punished and **{'{:,}'.format(amount)} gold** has been taken from you."
