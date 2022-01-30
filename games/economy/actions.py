@@ -37,10 +37,10 @@ def rich_leaderboard():
         for data in values:
             if placing >= 11:
                 break
-            output += f"**{placing}:** `{data[1]}` = **{'{:,}'.format(data[0])} gold**\n"
+            output += f"**{placing}:** `{data[1]}`: **{'{:,}'.format(data[0])} gold**\n"
             placing += 1
     return f"""
->>> **Richest citizens in Dragon's Economy:**
+>>> **Richest citizens in Dragon's Economy:** :coin:
 {output}"""
 
 
@@ -50,14 +50,14 @@ def scavenge(player_data):
                  "CPT's cave", "shoes", "DJDAN's pillows", "dumpsters", "CPT's Chalice",
                  "the Winter Company", "Aznile", "the Dragon Order", "a bakery", "CPT's house",
                  "YouTube HQ", "redditors", "Lothern", "Larry's home")
-    event_chance = random.randint(1, 20)
+    event_chance = random.randint(1, 100)
     statement = ""
 
-    if event_chance != 1:
+    if event_chance > 3:
         gold_change = random.randint(5, 25)
         statement = f"You scavenged **{gold_change} gold** from {random.choice(locations)}!"
     else:
-        gold_change = -random.randint(150, 400)
+        gold_change = -random.randint(150, 350)
         gold_statement = abs(gold_change)
         bad_events = (
             f"While scavenging, a wild Extalia appeared and stole **{gold_statement} gold** from you!",
@@ -134,7 +134,7 @@ def action(command, arg, arg_2, player_id, username=None):
                         error_msg = "You forgot to enter the player you were going to reward..."
                         return ruler_commands[option](arg) if arg else error_msg
                 else:
-                    return "Only my master himself can run this command... nerd"
+                    return "Only the ruler himself can run this command... nerd"
 
     else:
         return "You are not registered, Type `d!e register` to register."
