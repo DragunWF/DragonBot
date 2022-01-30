@@ -9,9 +9,7 @@ console = Console()
 
 servers = {440134996984856577: "chat_logs_1.txt", 404814305872183296: "chat_logs_2.txt",
            414052037580554251: "chat_logs_3.txt"}
-previous = {440134996984856577: None,
-            404814305872183296: None, 414052037580554251: None}
-ids = (440134996984856577, 414052037580554251, 404814305872183296)
+ids = tuple([x for x in servers])
 
 # Global variables for message sniping
 last_deleted_msg, deleted_msg_author = "", ""
