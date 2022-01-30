@@ -6,3 +6,5 @@
 
 **Note:** Some of the bot's features were back when I was new to programming overall. So you
 might see a lot of bad code on my bot's earliest features.
+
+**Extra Note:** I'm going to be rewriting this entire bot at some point in the future.
