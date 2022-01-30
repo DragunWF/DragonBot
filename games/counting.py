@@ -8,13 +8,14 @@ data_location = "data/counting.csv"
 
 def create_counting_id(guild_id, channel_id):
     with open(data_location, "r") as data:
-        reader = csv.reader(data)
+        reader = list(csv.reader(data))
         for row in reader:
             if row[0] == guild_id:
                 return "You already have a counting channel setup!"
 
         with open(data_location, "a", newline="") as file:
-            file.write([guild_id, channel_id, 0])
+            writer = csv.writer(file)
+            writer.writerow([guild_id, channel_id, "placeholder", 0])
         return "Setup is complete!"
 
 
@@ -32,37 +33,44 @@ def check_event():
     return False if event_chance != 1 else True
 
 
-def main_counting(guild_id, channel_id, number):
-    if not number in digits:
-        return
+def main_counting(guild_id, channel_id, user_id, number):
+    global previous_user
+
+    for character in number:
+        if not character in digits:
+            return
 
     with open(data_location, "r") as data:
-        reader = csv.reader(data)
-        for row in data:
+        reader = list(csv.reader(data))
+        reader = list(
+            map(lambda x: [int(x[0]), int(x[1]), x[2], int(x[3])], reader))
+        for row in reader:
             if row[0] == guild_id and row[1] == channel_id:
                 index = reader.index(row)
                 break
-            else:
-                return
-
-        statement = ""
-        if not check_event():
-            correct_number = reader[index][2] + 1
         else:
-            correct_number = trigger_event(reader[index][2])
+            return
+
+        statement, wrong_number = "", None
+        number = int(number)
+        if not check_event():
+            correct_number = reader[index][3] + 1
+        else:
+            correct_number = reader[index][3] + 1
+            # correct_number = trigger_event(reader[index][2])
 
         if number == correct_number:
-            pass
+            reader[index][3] = correct_number
         else:
             wrong_number = True
 
         if wrong_number:
-            reader[index][2] = 0
-            statement = f"The correct number was **{correct_number}** nerd!."
+            statement = f"WRONG, <@{user_id}> ruined it at **{reader[index][3]}**. The correct number was **{correct_number}**, nerd! Next number is **1**."
+            reader[index][3] = 0
 
         with open(data_location, "w", newline="") as file:
             writer = csv.writer(file)
             for row in reader:
                 writer.writerow(row)
 
-        return statement
+        return statement if statement else True
