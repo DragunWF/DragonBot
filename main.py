@@ -48,6 +48,14 @@ async def on_message(message):
     if any(word in msg.lower() for word in keyword.jackbox):
         await message.channel.send(keyword.jackbox_response())
 
+    counting = count.main_counting(
+        message.guild.id, message.channel.id, message.author.id, msg)
+    if type(counting) == type("string"):
+        await message.add_reaction("❌")
+        await message.channel.send(counting)
+    else:
+        await message.add_reaction("✅")
+
     await client.process_commands(message)
 
 
