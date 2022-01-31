@@ -34,7 +34,7 @@ async def on_ready():
 async def on_message(message):
     global previous_channel
 
-    if message.author == client.user:
+    if message.author == client.user or message.guild.id == 440134996984856577:
         return
 
     msg, channel = message.content, message.channel
@@ -50,11 +50,15 @@ async def on_message(message):
 
     counting = count.main_counting(
         message.guild.id, message.channel.id, message.author.id, msg)
-    if type(counting) == type("string"):
-        await message.add_reaction("❌")
-        await message.channel.send(counting)
-    else:
-        await message.add_reaction("✅")
+    if counting:
+        if type(counting[0]) == type("string"):
+            await message.add_reaction("❌")
+            await message.channel.send(counting[0])
+        else:
+            await message.add_reaction("✅")
+            if len(counting) > 1:
+                for x in range(len(counting) - 1):
+                    await message.channel.send(counting[x + 1])
 
     await client.process_commands(message)
 
