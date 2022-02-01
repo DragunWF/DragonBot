@@ -34,7 +34,7 @@ async def on_ready():
 async def on_message(message):
     global previous_channel
 
-    if message.author == client.user or message.guild.id == 440134996984856577:
+    if message.author == client.user:
         return
 
     msg, channel = message.content, message.channel
