@@ -50,14 +50,14 @@ def scavenge(player_data):
                  "CPT's cave", "shoes", "DJDAN's pillows", "dumpsters", "CPT's Chalice",
                  "the Winter Company", "Aznile", "the Dragon Order", "a bakery", "CPT's house",
                  "YouTube HQ", "redditors", "Lothern", "Larry's home")
-    event_chance = random.randint(1, 100)
+    event_chance = random.randint(1, 20)
     statement = ""
 
-    if event_chance > 3:
+    if event_chance != 1:
         gold_change = random.randint(5, 25)
         statement = f"You scavenged **{gold_change} gold** from {random.choice(locations)}!"
     else:
-        gold_change = -random.randint(150, 350)
+        gold_change = -random.randint(75, 250)
         gold_statement = abs(gold_change)
         bad_events = (
             f"While scavenging, a wild Extalia appeared and stole **{gold_statement} gold** from you!",
