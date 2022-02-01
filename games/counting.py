@@ -2,6 +2,7 @@ import csv
 import random
 from string import digits
 from discord.ext import commands
+from .economy.rewards import game_reward
 
 data_location = "data/counting.csv"
 
@@ -58,11 +59,13 @@ def main_counting(guild_id, channel_id, user_id, number):
             return
 
         statement, outputs = "", []
+        event_occuring, equation_solved = False, False
         if reader[index][3] == "none":
             correct_number = reader[index][4] + 1
         else:
             correct_number = reader[index][5]
             reader[index][3] = "none"
+            event_occuring = True
 
         def reset_counting():
             reader[index][4] = 0
@@ -72,6 +75,8 @@ def main_counting(guild_id, channel_id, user_id, number):
         if number == correct_number and user_id != reader[index][2]:
             reader[index][4] = correct_number
             reader[index][2] = user_id
+            if event_occuring:
+                equation_solved = True
         elif user_id == reader[index][2]:
             statement = f"WRONG, <@{user_id}> ruined it. The same person can't count twice! Next number is **1**."
             reset_counting()
@@ -80,6 +85,10 @@ def main_counting(guild_id, channel_id, user_id, number):
             reset_counting()
 
         outputs.append(statement if statement else True)
+
+        if not statement and equation_solved:
+            outputs.append(game_reward(user_id, "counting"))
+
         if check_event() and not statement:
             events = ("multiplication", "addition",
                       "algebra_1", "algebra_2", "algebra_3", "algebra_4")
