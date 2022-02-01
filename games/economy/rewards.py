@@ -19,7 +19,8 @@ def game_reward(player_id, game):
             return False
 
         reward_lvls = {"guess": (85, 200), "rockpaperscissors": (350, 550),
-                       "fight": (400, 650), "tictactoe": (450, 600)}
+                       "fight": (400, 650), "tictactoe": (450, 600),
+                       "counting": (100, 250)}
         min_num, max_num = reward_lvls[game][0], reward_lvls[game][1]
         gold_reward = random.randint(min_num, max_num)
         reader[index][2] += gold_reward
@@ -27,7 +28,10 @@ def game_reward(player_id, game):
             writer = csv.writer(data)
             for row in reader:
                 writer.writerow(row)
-        return f"Congrats, You have earned **{'{:,}'.format(gold_reward)} gold** from this mini-game!"
+
+        if game != "counting":
+            return f"Congrats, You have earned **{'{:,}'.format(gold_reward)} gold** from this mini-game!"
+        return f"Congrats, You have earned **{'{:,}'.format(gold_reward)} gold** from solving this equation!"
 
 
 def jackbox_reward(player_id):
