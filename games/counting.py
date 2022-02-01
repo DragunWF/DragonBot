@@ -15,7 +15,7 @@ def create_counting_id(guild_id, channel_id):
 
         with open(data_location, "a", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow([guild_id, channel_id, 123, "none", 0])
+            writer.writerow([guild_id, channel_id, 123, "none", 0, 0])
         return "Counting channel setup is complete!"
 
 
@@ -40,10 +40,6 @@ def check_event():
 
 def main_counting(guild_id, channel_id, user_id, number):
     global previous_user
-    # Fix bug tomorrow, problem here is that fact that the event
-    # trigger is happening before the event info is announced
-    # I could try adding an extra item to the data_set in the csv file
-    # that displays what type of event is occuring
 
     for chr in number:
         if not chr in digits and not chr in ("+", "-", "*", "/"):
@@ -53,7 +49,7 @@ def main_counting(guild_id, channel_id, user_id, number):
     with open(data_location, "r") as data:
         reader = list(csv.reader(data))
         reader = list(
-            map(lambda x: [int(x[0]), int(x[1]), int(x[2]), x[3], int(x[4])], reader))
+            map(lambda x: [int(x[0]), int(x[1]), int(x[2]), x[3], int(x[4]), int(x[5])], reader))
         for row in reader:
             if row[0] == guild_id and row[1] == channel_id:
                 index = reader.index(row)
@@ -65,8 +61,7 @@ def main_counting(guild_id, channel_id, user_id, number):
         if reader[index][3] == "none":
             correct_number = reader[index][4] + 1
         else:
-            correct_number = trigger_event(
-                reader[index][4], reader[index][3])[0]
+            correct_number = reader[index][5]
             reader[index][3] = "none"
 
         def reset_counting():
@@ -89,7 +84,10 @@ def main_counting(guild_id, channel_id, user_id, number):
             events = ("multiplication", "addition",
                       "algebra_1", "algebra_2", "algebra_3", "algebra_4")
             reader[index][3] = random.choice(events)
-            equation = trigger_event(reader[index][4], reader[index][3])[1]
+            event_getter = trigger_event(reader[index][4], reader[index][3])
+            equation = event_getter[1]
+            reader[index][5] = event_getter[0]
+
             outputs.append(f"**Event alert!**")
             outputs.append(
                 f"Next number is the result of the following equation `(p = {reader[index][4]})`:")
