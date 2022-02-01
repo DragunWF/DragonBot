@@ -56,9 +56,11 @@ async def on_message(message):
             await message.channel.send(counting[0])
         else:
             await message.add_reaction("✅")
-            if len(counting) > 1:
+            if len(counting) > 2:
                 for x in range(len(counting) - 1):
                     await message.channel.send(counting[x + 1])
+            elif counting[1]:
+                await message.channel.send(counting[1])
 
     await client.process_commands(message)
 
