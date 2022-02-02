@@ -5,6 +5,8 @@ import praw
 import random
 import utils.config as config  # import os
 
+previous_urls = {"memes": None, "coder": None,
+                 "homicide": None, "linux": None, "copypasta": None}
 reddit = praw.Reddit(client_id=config.praw_id, client_secret=config.praw_secret,
                      username=config.praw_username, password=config.praw_password, user_agent="DragonBot")
 # reddit = praw.Reddit(client_id=os.environ['RedID'], client_secret=os.environ['RedSecret'],
@@ -65,11 +67,17 @@ def get_meme(genre=""):
     for submission in hot:
         all_subs.append(submission)
 
-    random_post = random.choice(all_subs)
-    name, url = random_post.title, random_post.url
+    while True:
+        random_post = random.choice(all_subs)
+        url = random_post.url
+        if url != previous_urls[genre]:
+            break
+
+    name = random_post.title
     embed = discord.Embed(title=name)
     embed.set_image(url=url)
 
+    previous_urls[genre] = url
     return embed
 
 
@@ -81,7 +89,15 @@ def get_copypasta():
     for submission in hot:
         all_subs.append(submission)
 
-    random_post = random.choice(all_subs)
-    name, url, content = random_post.title, random_post.url, random_post.selftext
+    while True:
+        random_post = random.choice(all_subs)
+        url = random_post.url
+        if url != previous_urls["copypasta"]:
+            break
+
+    name = random_post.title
+    content = random_post.selftext
+
     embed = discord.Embed(title=name, url=url, description=content)
+    previous_urls["copypasta"] = url
     return embed
