@@ -40,8 +40,6 @@ def check_event():
 
 
 def main_counting(guild_id, channel_id, user_id, number):
-    global previous_user
-
     for chr in number:
         if not chr in digits and not chr in ("+", "-", "*", "/"):
             return
