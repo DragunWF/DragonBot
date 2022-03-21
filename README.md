@@ -1,6 +1,6 @@
 # DragonBot
 
-### Description:
+## Description:
 Hello! This was my first big Python project. I was quite new to programming when I made it so you can
 pretty much guess already that you're going to see a lot of terrible code here; but nonetheless it was
 a good learning experience for me.
