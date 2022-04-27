@@ -1,7 +1,6 @@
 import csv
 import random
 from string import digits
-from discord.ext import commands
 from .economy.rewards import game_reward
 
 data_location = "data/counting.csv"
@@ -47,8 +46,8 @@ def main_counting(guild_id, channel_id, user_id, number):
 
     with open(data_location, "r") as data:
         reader = list(csv.reader(data))
-        reader = list(
-            map(lambda x: [int(x[0]), int(x[1]), int(x[2]), x[3], int(x[4]), int(x[5])], reader))
+        reader = list(map(lambda x: [int(x[0]), int(x[1]), int(x[2]), x[3], int(x[4]), int(x[5])],
+                          reader))
         for row in reader:
             if row[0] == guild_id and row[1] == channel_id:
                 index = reader.index(row)
