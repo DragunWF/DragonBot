@@ -6,8 +6,12 @@
 
 ## Description:
 
-- A discord bot made for my personal discord server.
-- [Link to my Discord server](https://discord.gg/9JdnnPN)
+Hello! This was my first big Python project. I was quite new to programming when I made it so you can
+pretty much guess already that you're going to see a lot of terrible code here; but nonetheless it was
+a good learning experience for me.
 
-**Note:** This bot was made back when I was new to programming overall. So you
-will pretty much see a lot of bad code here overall.
+This bot pretty much won't get anymore updates since I mainly moved on now to programming a different discord bot in JavaScript. Namely [Ancalagon](https://github.com/DragunWF/Ancalagon).
+
+## Link To My Discord Server:
+
+- [Dragon's Castle](https://discord.gg/9JdnnPN)
