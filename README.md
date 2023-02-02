@@ -6,9 +6,7 @@
 
 ## Description:
 
-Hello! This was my first big Python project. I was quite new to programming when I made it so you can
-pretty much guess already that you're going to see a lot of terrible code here; but nonetheless it was
-a good learning experience for me.
+**Warning:** Lots of terrible code in this old project.
 
 This bot pretty much won't get anymore updates since I mainly moved on now to programming a different discord bot in JavaScript. Namely [Ancalagon](https://github.com/DragunWF/Ancalagon).
 
